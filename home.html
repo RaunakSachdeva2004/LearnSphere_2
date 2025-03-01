@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LearnSphere</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <h1>Welcome to LearnSphere</h1>
+        <p>Choose a subject to start learning:</p>
+
+        <div class="button-container">
+            <a href="sub/maths.html" class="button">Maths</a>
+            <a href="sub/physics.html" class="button">Physics</a>
+            <a href="sub/chemistry.html" class="button">Chemistry</a>
+            <a href="sub/biology.html" class="button">Biology</a>
+        </div>
+
+        <!-- Study Progress Section -->
+        <section class="study-progress">
+            <h2>Your Study Progress</h2>
+            <ul id="progressList">
+                <li>Physics: Motion and Laws of Motion - Completed</li>
+                <li>Maths: Calculus - In Progress</li>
+                <li>Chemistry: Atomic Structure - Not Started</li>
+                <li>Biology: Human Anatomy - Not Started</li>
+            </ul>
+        </section>
+
+        <!-- Chatbot Section -->
+        <section class="chatbot">
+            <h2>Ask Your AI Tutor</h2>
+            <div class="chat-container">
+                <div id="chat-box"></div>
+                <input type="text" id="user-input" placeholder="Ask me anything...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </section>
+
+        <button id="logoutButton" class="logout-button">Logout</button>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+</html>
