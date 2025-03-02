@@ -1,0 +1,122 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Main Container */
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    max-width: 600px;
+    border: 2px solid #008374;
+}
+
+/* Headings */
+.title {
+    font-size: 2rem;
+    color: #008374;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center; /* Ensures it's centered */
+    display: block; /* Makes sure it's visible */
+}
+
+.description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Canvas Styling */
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border: 3px solid #008374;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    height: 320px;
+    background-color: #e0f7f5;
+}
+
+/* Controls */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+button, input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #008374;
+}
+
+input {
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Buttons */
+button {
+    background: #008374;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    background: #00695c;
+    transform: scale(1.05);
+}
+
+/* Navigation Links */
+.button-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.button {
+    display: block;
+    background-color: #008374;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #00695c;
+    transform: scale(1.05);
+}
+
+/* Back Button */
+.button.back {
+    background-color: #333;
+}
+
+.button.back:hover {
+    background-color: #222;
+}
