@@ -5,18 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motion Simulation - LearnSphere</title>
     <link rel="stylesheet" href="motion.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .title {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px cyan;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            background: #001f3f;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        .canvas-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .button {
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button:hover {
+            background: #0056b3;
+            transform: scale(0.95);
+        }
+
+        .dark-mode {
+            background: #f4f4f4;
+            color: #000;
+        }
+
+        .dark-mode .canvas-container {
+            background: #e0e0e0;
+        }
+
+        .dark-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #ffcc00;
+            color: #000;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .dark-toggle:hover {
+            background: #ffaa00;
+        }
+
+        .back-button {
+            display: none;
+            background: #ff4444;
+        }
+
+        .loading {
+            display: none;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<body>
+<body onload="loadTheme()">
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
     <div class="container">
         <h1 class="title">Motion Simulation</h1>
         <p class="description">
-            Learn and explore the concepts of motion, including kinematics and dynamics, through explanations, animations, formulas, and real-life examples.
+            Explore motion concepts interactively! Learn about kinematics and dynamics through simulations, animations, formulas, and real-world applications.
         </p>
 
-        <div class="canvas-container">
+        <div class="canvas-container" id="videoContainer">
             <canvas id="motionCanvas"></canvas>
         </div>
+
+        <div class="loading" id="loading">⏳ Loading...</div>
+
         <div class="button-grid">
             <button class="button" onclick="startMotion()">▶️ Start Motion</button>
             <button class="button" onclick="resetSimulation()">🔄 Reset</button>
@@ -24,15 +148,60 @@
 
         <div class="button-grid">
             <a href="https://byjus.com/physics/motion-in-physics/#:~:text=In%20physics%2C%20motion%20is%20the,Displacement" class="button">📖 Theory</a>
-            <a href="https://phys23p.sl.psu.edu/phys_anim/mech/indexer_mechEv1.html" class="button" onclick="startAnimation()">🎞️ Animation</a>
+            <a href="https://phys23p.sl.psu.edu/phys_anim/mech/indexer_mechEv1.html" class="button">🎞️ Animation</a>
             <a href="https://byjus.com/physics/derivation-of-equation-of-motion/" class="button">✏️ Formula & Derivation</a>
-            <a href="https://www.youtube.com/watch?v=ztt1mVYH6x4" class="button">🌍 Real-Life Example</a>
+            <button class="button" onclick="loadRealLifeExample()">🌍 Real-Life Example</button>
             <a href="https://ophysics.com/k7.html" class="button" target="_blank">🎮 Interactive</a>
-            <a href="index.html" class="button">Back to Home</a>
+            <a href="../quiz/quiz.html" class="button" target="_blank">🎮 Quiz</a>
+            <a href="../home.html" class="button">🏠 Home</a>
         </div>
+
+        <button class="button back-button" onclick="restoreSimulation()" id="backButton">⬅️ Back to Simulation</button>
     </div>
+
+    <script>
+        function startMotion() {
+            console.log("Starting motion simulation");
+        }
+
+        function resetSimulation() {
+            console.log("Resetting simulation");
+        }
+
+        function loadRealLifeExample() {
+            document.getElementById("videoContainer").innerHTML = `
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ztt1mVYH6x4?autoplay=1" 
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function restoreSimulation() {
+    // Restore the original canvas
+    let container = document.getElementById("videoContainer");
+    container.innerHTML = `<canvas id="motionCanvas"></canvas>`;
+
+    // Hide the back button
+    document.getElementById("backButton").style.display = "none";
+
+    // Ensure the script reinitializes the motion simulation
+    setTimeout(() => {
+        startMotion();  // Restart the simulation
+    }, 100);  // Small delay to ensure canvas is loaded
+}
+
+        function toggleDarkMode() {
+            let body = document.body;
+            body.classList.toggle("dark-mode");
+            localStorage.setItem("darkMode", body.classList.contains("dark-mode"));
+        }
+
+        function loadTheme() {
+            if (localStorage.getItem("darkMode") === "true") {
+                document.body.classList.add("dark-mode");
+            }
+        }
+    </script>
 
     <script src="motion.js"></script>
 </body>
 </html>
-
