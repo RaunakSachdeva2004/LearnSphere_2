@@ -1,17 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const canvas = document.getElementById("motionCanvas");
-    const ctx = canvas.getContext("2d");
+    let canvas = document.getElementById("motionCanvas");
+    let ctx = canvas.getContext("2d");
 
-    // Set canvas size
-    canvas.width = 500;
-    canvas.height = 300;
+    function initializeCanvas() {
+        canvas = document.getElementById("motionCanvas");
+        ctx = canvas.getContext("2d");
+
+        if (!canvas || !ctx) {
+            console.error("Canvas initialization failed.");
+            return;
+        }
+
+        canvas.width = 500;
+        canvas.height = 300;
+
+        drawObstacle();
+        drawBall();
+    }
 
     // Object properties
-    let ball = { x: 50, y: canvas.height / 2, radius: 10, velocity: 2, mass: 1 };
-    let obstacle = { x: 350, y: canvas.height / 2 - 20, width: 40, height: 40, velocity: 0, mass: 3 };
+    let ball = { x: 50, y: 150, radius: 10, velocity: 2, mass: 1 };
+    let obstacle = { x: 350, y: 130, width: 40, height: 40, velocity: 0, mass: 3 };
 
-    let animation; // Animation frame reference
-    let motionActive = false; // Prevent multiple starts
+    let animation;
+    let motionActive = false;
 
     // Draw Ball
     function drawBall() {
@@ -22,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.closePath();
     }
 
-    // Draw Obstacle (Box)
+    // Draw Obstacle
     function drawObstacle() {
         ctx.fillStyle = "blue";
         ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
@@ -40,24 +52,23 @@ document.addEventListener("DOMContentLoaded", function () {
                ball.y <= obstacle.y + obstacle.height;
     }
 
-    // Update Function (Handles Motion & Collision)
+    // Update Function
     function update() {
         clearCanvas();
         drawObstacle();
         drawBall();
 
         if (!checkCollision()) {
-            ball.x += ball.velocity; // Ball moves forward
+            ball.x += ball.velocity;
         } else {
-            let impactForce = ball.velocity * ball.mass / obstacle.mass;
-            ball.velocity = 0; // Ball stops
-            obstacle.velocity = impactForce * 5; // Move obstacle
+            let impactForce = (ball.velocity * ball.mass) / obstacle.mass;
+            ball.velocity = 0;
+            obstacle.velocity = impactForce * 5;
         }
 
-        // Move obstacle slightly due to impact
         if (obstacle.velocity > 0) {
             obstacle.x += obstacle.velocity;
-            obstacle.velocity *= 0.9; // Gradual stopping effect
+            obstacle.velocity *= 0.9;
         }
 
         animation = requestAnimationFrame(update);
@@ -84,7 +95,17 @@ document.addEventListener("DOMContentLoaded", function () {
         drawBall();
     };
 
-    // Draw Initial State
-    drawObstacle();
-    drawBall();
+    // Restore Simulation when clicking "Back"
+    window.restoreSimulation = function () {
+        document.getElementById("videoContainer").innerHTML = `<canvas id="motionCanvas"></canvas>`;
+        document.getElementById("backButton").style.display = "none";
+
+        setTimeout(() => {
+            initializeCanvas();
+            startMotion();
+        }, 100);
+    };
+
+    // Initial Draw
+    initializeCanvas();
 });
