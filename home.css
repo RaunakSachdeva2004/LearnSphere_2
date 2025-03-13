@@ -6,60 +6,102 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #121212; /* Dark background */
-    color: #e0e0e0; /* Light text */
+    background-color: #f5f5f5;
     min-height: 100vh;
 }
 
-/* Study Progress & Chatbot Section */
-.study-progress, .chatbot {
-    background: #1e1e1e; /* Dark background */
+/* Dashboard Container */
+.dashboard-container {
+    text-align: center;
+    padding: 30px;
+}
+
+/* Subject Buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: #046c64;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #034f4b;
+}
+
+/* Study Progress */
+.study-progress {
+    background: white;
     padding: 20px;
     margin: 20px auto;
     width: 50%;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.study-progress h2, .chatbot h2 {
-    color: #66fcf1; /* Soft Cyan for contrast */
+.study-progress h2 {
+    color: #046c64;
 }
 
-/* Progress List */
+#progressList {
+    list-style: none;
+    padding: 0;
+}
+
 #progressList li {
-    background: #2a2a2a; /* Slightly lighter dark */
+    background: #eafbea;
     padding: 10px;
     margin: 5px;
     border-radius: 5px;
-    color: #ffffff;
 }
 
-/* Chatbox */
+/* Chatbot Section */
+.chatbot {
+    background: white;
+    padding: 20px;
+    width: 50%;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot h2 {
+    color: #046c64;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #chat-box {
     width: 90%;
     height: 200px;
     overflow-y: auto;
-    background: #2a2a2a; /* Darker background */
+    background: #f0f0f0;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    color: white;
 }
 
-/* User Input */
 #user-input {
     width: 80%;
     padding: 10px;
     margin-bottom: 10px;
-    background: #333; /* Dark input field */
-    color: white;
-    border: 1px solid #444;
 }
 
-/* Buttons */
 button {
-    background-color: #66fcf1;
-    color: #121212;
+    background-color: #046c64;
+    color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -67,5 +109,6 @@ button {
 }
 
 button:hover {
-    background-color: #45a29e;
+    background-color: #034f4b;
 }
+
