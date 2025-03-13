@@ -1,31 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - LearnSphere</title>
-    <link rel="stylesheet" href="login.css">
-</head>
-<body>
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
 
-    <div class="auth-container">
-        <h2>Create an Account</h2>
-        <form id="registerForm">
-            <label for="fullname">Full Name</label>
-            <input type="text" id="fullname" placeholder="Enter your full name" required>
+    // Check if user is already logged in, redirect to home if true
+    if (window.location.pathname.includes("login.html") && localStorage.getItem("isLoggedIn") === true) {
+        window.location.href = "../home.html";
+    }
 
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email" required>
+    // Login Form Submission
+    if (loginForm) {
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Create a password" required>
+            const storedUser = JSON.parse(localStorage.getItem("user"));
 
-            <button type="submit" class="auth-button">Sign Up</button>
+            if (storedUser && storedUser.email === email && storedUser.password === password) {
+                localStorage.setItem("isLoggedIn", "true"); // Mark user as logged in
+                alert("Login successful! Redirecting to Home...");
+                window.location.href = "../home.html"; // Redirect to home page
+            } 
+            else {
+                alert("Invalid email or password.");
+            }
+        });
+    }
 
-            <p class="switch-auth">Already have an account? <a href="login.html">Log in</a></p>
-        </form>
-    </div>
+    // Registration Form Submission
+    if (registerForm) {
+        registerForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const fullname = document.getElementById("fullname").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-    <script src="login.js"></script>
-</body>
-</html>
+            if (fullname && email && password) {
+                const user = { fullname, email, password };
+                localStorage.setItem("user", JSON.stringify(user)); // Save user in localStorage
+
+                alert("Registration successful! Redirecting to login...");
+                window.location.href = "login.html"; // Redirect to login page
+            } else {
+                alert("Please fill out all fields.");
+            }
+        });
+    }
+});
