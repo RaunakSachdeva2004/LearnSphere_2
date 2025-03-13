@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion</title>
+    <link rel="stylesheet" href="ProjectileMotion.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .title {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px cyan;
+        }
+        .description {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            background: #001f3f;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .canvas-container:hover {
+            transform: scale(1.05);
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.4s;
+        }
+        .button:hover::before {
+            left: 100%;
+        }
+        .button:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        @media (max-width: 600px) {
+            .title {
+                font-size: 2rem;
+            }
+            .description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Projectile Motion Simulation</h1>
+        <p class="description">Learn and explore the concepts of projectile motion through simulations, animations, and real-life examples.</p>
+
+        <canvas id="projectileCanvas"></canvas>
+
+        <div class="button-grid">
+            <a href="https://pressbooks.bccampus.ca/universityphysicssandbox/chapter/projectile-motion" target="_blank" class="button">📖 Theory</a>
+            <a href="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_all.html" target="_blank" class="button">🎥 Animation</a>
+            <a href="https://www.youtube.com/watch?v=8NLzuURxFwY" target="_blank" class="button">📏 Formula & Derivation</a>
+            <a href="https://www.youtube.com/watch?v=gGScN2-YYIw" target="_blank" class="button">🌍 Real-Life Example</a>
+            <a href="https://ophysics.com/k8.html" target="_blank" class="button">🎮 Interactive</a>
+            <a href="../home.html" class="button">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="projectile.js"></script>
+</body>
+</html>
+
