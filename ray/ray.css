@@ -10,8 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     text-align: center;
+    min-height: 100vh;
   
     /* Education-Themed Background */
     background-image: url('https://www.transparenttextures.com/patterns/cubes.png'), 
