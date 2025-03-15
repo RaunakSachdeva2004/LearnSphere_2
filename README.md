@@ -1,6 +1,6 @@
 # 📚 LearnSphere – The Ultimate Learning Hub 🚀
 
-![LearnSphere Banner](https://your-image-link.com) <!-- Replace with an actual image link -->
+![LearnSphere Banner](https://github.com/omroy07/LearnSphere_2/blob/main/img/home.png) <!-- Replace with an actual image link -->
 
 ## 🌟 About LearnSphere  
 **LearnSphere** is an AI-powered educational platform designed to facilitate peer learning, knowledge sharing, and interactive discussions. With advanced AI chatbots and a seamless UI, LearnSphere enhances the learning experience by providing instant support, progress tracking, and collaboration opportunities.  
@@ -29,9 +29,9 @@
 
 ## 📸 Screenshots  
 <!-- Add images here -->
-![Dashboard](https://your-image-link.com)  
-![Chatbot UI](https://your-image-link.com)  
-![Discussion Forum](https://your-image-link.com)  
+![Dashboard](https://github.com/omroy07/LearnSphere_2/blob/main/img/Course.png)  
+![Chatbot UI](https://github.com/omroy07/LearnSphere_2/blob/main/img/physics.png)  
+![Discussion Forum](https://github.com/omroy07/LearnSphere_2/blob/main/img/motion.png)  
 
 ---
 
