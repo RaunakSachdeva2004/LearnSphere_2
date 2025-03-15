@@ -4,7 +4,7 @@ from flask_cors import CORS
 import google.generativeai as genai
 
 # Secure API Key
-API_KEY = "AIzaSyCHaO_fHrrnttwyuWjSFznVrDAwGmB2xUo"
+API_KEY = "Your_API_Key"
 genai.configure(api_key=API_KEY)
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
