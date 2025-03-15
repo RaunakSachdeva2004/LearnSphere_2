@@ -41,3 +41,13 @@
 ```bash
 git clone https://github.com/omroy07/LearnSphere_2.git
 cd LearnSphere_2
+```
+###2️⃣ Install Dependencies
+```bash
+npm install
+```
+###3️⃣ Start the Development Server
+```bash
+npm start
+```
+
