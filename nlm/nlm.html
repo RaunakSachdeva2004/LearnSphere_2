@@ -6,91 +6,60 @@
     <title>Newton's Laws of Motion</title>
     <link rel="stylesheet" href="nlm.css">
     <style>
-        body {
-            background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
-            color: #ffffff;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .title {
-            font-size: 2.5rem;
-            text-shadow: 0 0 10px cyan;
-        }
-        .description {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            opacity: 0.8;
-        }
-        .canvas-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 300px;
-            background: #001f3f;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease-in-out;
-        }
-        .canvas-container:hover {
-            transform: scale(1.05);
-        }
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .button {
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .button::before {
-            content: '';
-            position: absolute;
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.4s;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
-        .button:hover::before {
-            left: 100%;
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
         }
-        .button:hover {
-            background: #0056b3;
-            transform: scale(1.05);
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
-        @media (max-width: 600px) {
-            .title {
-                font-size: 2rem;
-            }
-            .description {
-                font-size: 1rem;
-            }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #008374;
+        }
+
+        .modal-header .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #008374;
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -115,16 +84,50 @@
 
         <!-- Links for Learning -->
         <div class="button-grid">
-            <a href="https://www.physicsclassroom.com/class/1DKin" class="button" target="_blank">📖 Theory</a>
-            <a href="https://phys23p.sl.psu.edu/phys_anim/mech/indexer_mechEv1.html" class="button" target="_blank">🎞️ Animation</a>
-            <a href="https://www.youtube.com/watch?v=D6r8Hlf4z1w" class="button" target="_blank">✏️ Formula & Derivation</a>
-            <a href="https://www.youtube.com/watch?v=V7vRqv7YuqM" class="button" target="_blank">🌍 Real-Life Example</a>
-            <a href="https://ophysics.com/k1.html" class="button" target="_blank">🎮 Interactive</a>
+            <button onclick="openModal('https://www.physicsclassroom.com/class/1DKin', 'Theory')" class="button">📖 Theory</button>
+            <button onclick="openModal('https://phys23p.sl.psu.edu/phys_anim/mech/indexer_mechEv1.html', 'Animation')" class="button">🎞️ Animation</button>
+            <button onclick="openModal('https://www.youtube.com/embed/D6r8Hlf4z1w', 'Formula & Derivation')" class="button">✏️ Formula & Derivation</button>
+            <button onclick="openModal('https://www.youtube.com/embed/V7vRqv7YuqM', 'Real-Life Example')" class="button">🌍 Real-Life Example</button>
+            <button onclick="openModal('https://ophysics.com/k1.html', 'Interactive')" class="button">🎮 Interactive</button>
+            <a href="quiz.html" class="button">📝 Quiz</a> <!-- New Quiz Button -->
             <a href="../home.html" class="button">Back to Home</a>
         </div>
     </div>
 
+    <!-- Modal for displaying external content -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Modal Title</h2> <!-- Dynamic title will go here -->
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <iframe id="modal-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
     <script src="nlm.js"></script>
+    <script>
+        // Function to open the modal with the given URL and title
+        function openModal(url, title) {
+            const modal = document.getElementById('modal');
+            const iframe = document.getElementById('modal-iframe');
+            const modalTitle = document.getElementById('modal-title');
+
+            // Set the modal title and iframe source
+            modalTitle.textContent = title;
+            iframe.src = url;
+            modal.style.display = 'flex';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            const iframe = document.getElementById('modal-iframe');
+            iframe.src = ''; // Clear the iframe source
+            modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
-
