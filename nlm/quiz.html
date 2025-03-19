@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz on Newton's Laws of Motion</title>
+    <link rel="stylesheet" href="nlm.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            width: 90%;
+            border: 2px solid #008374;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px cyan;
+            color: #008374;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question h3 {
+            margin-bottom: 10px;
+            color: #008374;
+            font-size: 1.2rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+        }
+
+        .submit-button {
+            background: #008374;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+
+        .submit-button:hover {
+            background: #00695c;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>Quiz on Newton's Laws of Motion</h1>
+        <form id="quiz-form">
+            <!-- Question 1 -->
+            <div class="question">
+                <h3>1. Newton’s First Law of Motion is also known as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> Law of Acceleration</label>
+                    <label><input type="radio" name="q1" value="b"> Law of Inertia</label>
+                    <label><input type="radio" name="q1" value="c"> Law of Action-Reaction</label>
+                    <label><input type="radio" name="q1" value="d"> Law of Momentum</label>
+                </div>
+                <div class="result" id="result1"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <h3>2. Which of the following is NOT an example of Newton’s Third Law?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> A rocket taking off</label>
+                    <label><input type="radio" name="q2" value="b"> A person pushing a wall and the wall pushing
+                        back</label>
+                    <label><input type="radio" name="q2" value="c"> A car accelerating on a straight road</label>
+                    <label><input type="radio" name="q2" value="d"> A swimmer pushing water backward and moving
+                        forward</label>
+                </div>
+                <div class="result" id="result2"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <h3>3. A person standing in a moving bus falls forward when the bus stops suddenly due to:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> Newton’s First Law</label>
+                    <label><input type="radio" name="q3" value="b"> Newton’s Second Law</label>
+                    <label><input type="radio" name="q3" value="c"> Newton’s Third Law</label>
+                    <label><input type="radio" name="q3" value="d"> Law of Conservation of Energy</label>
+                </div>
+                <div class="result" id="result3"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <h3>4. The SI unit of force is:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> Joule</label>
+                    <label><input type="radio" name="q4" value="b"> Newton</label>
+                    <label><input type="radio" name="q4" value="c"> Pascal</label>
+                    <label><input type="radio" name="q4" value="d"> Watt</label>
+                </div>
+                <div class="result" id="result4"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <h3>5. Which of the following quantities is a vector?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> Mass</label>
+                    <label><input type="radio" name="q5" value="b"> Time</label>
+                    <label><input type="radio" name="q5" value="c"> Force</label>
+                    <label><input type="radio" name="q5" value="d"> Speed</label>
+                </div>
+                <div class="result" id="result5"></div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <h3>6. A book kept on a table does not move because of:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> Newton’s Third Law</label>
+                    <label><input type="radio" name="q6" value="b"> Balanced Forces</label>
+                    <label><input type="radio" name="q6" value="c"> Newton’s First Law</label>
+                    <label><input type="radio" name="q6" value="d"> Centripetal Force</label>
+                </div>
+                <div class="result" id="result6"></div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <h3>7. The acceleration of a body is directly proportional to:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="a"> Its mass</label>
+                    <label><input type="radio" name="q7" value="b"> Its velocity</label>
+                    <label><input type="radio" name="q7" value="c"> The applied force</label>
+                    <label><input type="radio" name="q7" value="d"> The frictional force</label>
+                </div>
+                <div class="result" id="result7"></div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <h3>8. Which of the following is an example of Newton’s Third Law?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="a"> A ball rolling on a floor</label>
+                    <label><input type="radio" name="q8" value="b"> A book resting on a table</label>
+                    <label><input type="radio" name="q8" value="c"> Recoil of a gun</label>
+                    <label><input type="radio" name="q8" value="d"> A car moving on a straight road</label>
+                </div>
+                <div class="result" id="result8"></div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <h3>9. When a force is applied to an object, it will accelerate. This is based on:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="a"> Newton’s Second Law</label>
+                    <label><input type="radio" name="q9" value="b"> Newton’s First Law</label>
+                    <label><input type="radio" name="q9" value="c"> Newton’s Third Law</label>
+                    <label><input type="radio" name="q9" value="d"> None of these</label>
+                </div>
+                <div class="result" id="result9"></div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <h3>10. A man jumps from a boat to the shore. The boat moves backward. This is an example of:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="a"> Newton’s First Law</label>
+                    <label><input type="radio" name="q10" value="b"> Newton’s Second Law</label>
+                    <label><input type="radio" name="q10" value="c"> Newton’s Third Law</label>
+                    <label><input type="radio" name="q10" value="d"> Law of Conservation of Energy</label>
+                </div>
+                <div class="result" id="result10"></div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question">
+                <h3>11. A force of 20 N is applied to a 5 kg object. What is the acceleration of the object?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="a"> 2 m/s²</label>
+                    <label><input type="radio" name="q11" value="b"> 4 m/s²</label>
+                    <label><input type="radio" name="q11" value="c"> 5 m/s²</label>
+                    <label><input type="radio" name="q11" value="d"> 10 m/s²</label>
+                </div>
+                <div class="result" id="result11"></div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question">
+                <h3>12. A ball of mass 2 kg is moving with a velocity of 3 m/s. Its momentum is:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="a"> 2 kg·m/s</label>
+                    <label><input type="radio" name="q12" value="b"> 3 kg·m/s</label>
+                    <label><input type="radio" name="q12" value="c"> 6 kg·m/s</label>
+                    <label><input type="radio" name="q12" value="d"> 9 kg·m/s</label>
+                </div>
+                <div class="result" id="result12"></div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question">
+                <h3>13. A truck of mass 2000 kg moving with a velocity of 10 m/s comes to rest in 5 seconds. What is the
+                    force required to stop it?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="a"> -4000 N</label>
+                    <label><input type="radio" name="q13" value="b"> -2000 N</label>
+                    <label><input type="radio" name="q13" value="c"> 4000 N</label>
+                    <label><input type="radio" name="q13" value="d"> 200 N</label>
+                </div>
+                <div class="result" id="result13"></div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question">
+                <h3>14. A bullet of mass 0.02 kg is fired from a gun with a velocity of 200 m/s. If the gun’s mass is 2
+                    kg, what is its recoil velocity?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="a"> 0.2 m/s</label>
+                    <label><input type="radio" name="q14" value="b"> 1 m/s</label>
+                    <label><input type="radio" name="q14" value="c"> 2 m/s</label>
+                    <label><input type="radio" name="q14" value="d"> 4 m/s</label>
+                </div>
+                <div class="result" id="result14"></div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question">
+                <h3>15. A force of 30 N is applied to a body for 3 seconds. If the velocity changes from 2 m/s to 8 m/s,
+                    find the mass of the body.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="a"> 2 kg</label>
+                    <label><input type="radio" name="q15" value="b"> 5 kg</label>
+                    <label><input type="radio" name="q15" value="c"> 10 kg</label>
+                    <label><input type="radio" name="q15" value="d"> 15 kg</label>
+                </div>
+                <div class="result" id="result15"></div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question">
+                <h3>16. Two blocks of mass 3 kg and 7 kg are pushed with a force of 50 N. Find the acceleration of the
+                    system.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="a"> 3 m/s²</label>
+                    <label><input type="radio" name="q16" value="b"> 5 m/s²</label>
+                    <label><input type="radio" name="q16" value="c"> 7 m/s²</label>
+                    <label><input type="radio" name="q16" value="d"> 10 m/s²</label>
+                </div>
+                <div class="result" id="result16"></div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question">
+                <h3>17. A force of 100 N is applied to a stationary object of mass 25 kg for 4 seconds. What will be its
+                    velocity?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="a"> 10 m/s</label>
+                    <label><input type="radio" name="q17" value="b"> 16 m/s</label>
+                    <label><input type="radio" name="q17" value="c"> 20 m/s</label>
+                    <label><input type="radio" name="q17" value="d"> 25 m/s</label>
+                </div>
+                <div class="result" id="result17"></div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question">
+                <h3>18. A 0.2 kg cricket ball moving at 10 m/s is stopped by a player in 0.1 s. Find the force applied
+                    by the player.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="a"> 10 N</label>
+                    <label><input type="radio" name="q18" value="b"> 15 N</label>
+                    <label><input type="radio" name="q18" value="c"> 20 N</label>
+                    <label><input type="radio" name="q18" value="d"> 25 N</label>
+                </div>
+                <div class="result" id="result18"></div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question">
+                <h3>19. A car moving at 20 m/s comes to rest after traveling 100 m. Find the acceleration.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="a"> -2 m/s²</label>
+                    <label><input type="radio" name="q19" value="b"> -4 m/s²</label>
+                    <label><input type="radio" name="q19" value="c"> 2 m/s²</label>
+                    <label><input type="radio" name="q19" value="d"> 5 m/s²</label>
+                </div>
+                <div class="result" id="result19"></div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question">
+                <h3>20. Two forces of 6 N and 8 N act at right angles to each other. Find the resultant force.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="a"> 10 N</label>
+                    <label><input type="radio" name="q20" value="b"> √100 = 10 N</label>
+                    <label><input type="radio" name="q20" value="c"> 12 N</label>
+                    <label><input type="radio" name="q20" value="d"> 14 N</label>
+                </div>
+                <div class="result" id="result20"></div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" onclick="checkAnswers()" class="submit-button">Submit Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        // Correct answers for each question
+        const correctAnswers = {
+            q1: "b", // Correct answer for Question 1
+            q2: "c", // Correct answer for Question 2
+            q3: "a", // Correct answer for Question 3
+            q4: "b", // Correct answer for Question 4
+            q5: "c", // Correct answer for Question 5
+            q6: "c", // Correct answer for Question 6
+            q7: "c", // Correct answer for Question 7
+            q8: "c", // Correct answer for Question 8
+            q9: "a", // Correct answer for Question 9
+            q10: "c", // Correct answer for Question 10
+            q11: "b", // Correct answer for Question 11
+            q12: "c", // Correct answer for Question 12
+            q13: "a", // Correct answer for Question 13
+            q14: "c", // Correct answer for Question 14
+            q15: "b", // Correct answer for Question 15
+            q16: "b", // Correct answer for Question 16
+            q17: "b", // Correct answer for Question 17
+            q18: "c", // Correct answer for Question 18
+            q19: "a", // Correct answer for Question 19
+            q20: "b", // Correct answer for Question 20
+        };
+
+        // Function to check answers
+        function checkAnswers() {
+            for (let i = 1; i <= 20; i++) {
+                const questionName = `q${i}`;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                const resultDiv = document.getElementById(`result${i}`);
+
+                if (selectedOption) {
+                    if (selectedOption.value === correctAnswers[questionName]) {
+                        resultDiv.innerHTML = `<span class="correct">Correct! 🎉</span>`;
+                    } else {
+                        resultDiv.innerHTML = `<span class="incorrect">Incorrect! ❌ The correct answer is <span class="correct">${correctAnswers[questionName]}</span>.</span>`;
+                    }
+                } else {
+                    resultDiv.innerHTML = `<span class="incorrect">No answer selected! ❌ The correct answer is <span class="correct">${correctAnswers[questionName]}</span>.</span>`;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
