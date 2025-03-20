@@ -1,138 +1,107 @@
-* {
-    box-sizing: border-box;
-}
-/* General Styling */
 body {
-    font-family: 'Poppins', Arial, sans-serif;
-    background-color: #eafbea;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.title {
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px cyan;
+}
+
+.description {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.canvas-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    min-height: 100vh;
-  
-    /* Education-Themed Background */
-    background-image: url('https://www.transparenttextures.com/patterns/cubes.png'), 
-                      linear-gradient(to right, #eafbea, #d4f4d2);
-    background-size: cover;
-}
-
-/* Main Container */
-.container {
-    background: rgba(255, 255, 255, 0.95); /* Slight transparency for depth */
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    max-width: 650px;
-    border: 3px solid #008374;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.container:hover {
-    transform: scale(1.03);
-    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
-}
-
-/* Headings */
-h1 {
-    font-size: 2.5rem;
-    color: #008374;
-    font-weight: bold;
-    margin-bottom: 12px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-/* Canvas Styling */
-canvas {
-    border: 3px solid #008374;
+    height: 300px;
+    background: #001f3f;
     border-radius: 10px;
-    width: 100%;
-    max-width: 520px;
-    height: 320px;
-    background-color: #f0f9f0;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
     margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
 }
 
-/* Button Container */
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 15px;
-}
-
-/* Buttons */
-button {
-    background: #008374;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: background 0.3s ease, transform 0.2s ease-in-out;
-}
-
-button:hover {
-    background: #00695c;
+.canvas-container:hover {
     transform: scale(1.05);
 }
 
-button:active {
-    transform: scale(1);
-}
-
-/* Grid Buttons */
 .button-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
 }
 
 .button {
-    display: block;
-    background-color: #008374;
+    background: #007bff;
     color: white;
     text-decoration: none;
-    padding: 14px;
+    padding: 12px 15px;
     border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: background 0.3s ease, transform 0.2s ease-in-out;
-    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.4s;
+}
+
+.button:hover::before {
+    left: 100%;
 }
 
 .button:hover {
-    background-color: #00695c;
-    transform: scale(1.08);
+    background: #0056b3;
+    transform: scale(1.05);
 }
 
-.button:active {
-    transform: scale(1);
-}
+@media (max-width: 600px) {
+    .title {
+        font-size: 2rem;
+    }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 20px;
-        max-width: 90%;
-    }
-    
-    h1 {
-        font-size: 2.2rem;
-    }
-    
-    canvas {
-        height: 280px;
-    }
-    
-    button, .button {
+    .description {
         font-size: 1rem;
-        padding: 10px;
     }
 }
