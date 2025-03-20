@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mirror Reflection Simulation</title>
+    <title>Ray Optics - LearnSphere</title>
     <link rel="stylesheet" href="ray.css">
     <style>
         body {
@@ -13,26 +14,39 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
         }
+
         .container {
             max-width: 900px;
             margin: auto;
             padding: 20px;
             animation: fadeIn 1.5s ease-in-out;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .title {
             font-size: 2.5rem;
             text-shadow: 0 0 10px cyan;
         }
+
         .description {
             font-size: 1.2rem;
             margin-bottom: 20px;
             opacity: 0.8;
         }
+
         .canvas-container {
             display: flex;
             justify-content: center;
@@ -43,16 +57,23 @@
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
             margin-bottom: 20px;
             transition: transform 0.3s ease-in-out;
+            overflow: hidden;
         }
-        .canvas-container:hover {
-            transform: scale(1.05);
+
+        .canvas-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
         }
+
         .button-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
+
         .button {
             background: #007bff;
             color: white;
@@ -67,50 +88,280 @@
             position: relative;
             overflow: hidden;
         }
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.4s;
-        }
-        .button:hover::before {
-            left: 100%;
-        }
+
         .button:hover {
             background: #0056b3;
-            transform: scale(1.05);
+            transform: scale(0.95);
         }
-        @media (max-width: 600px) {
-            .title {
-                font-size: 2rem;
-            }
-            .description {
-                font-size: 1rem;
-            }
+
+        .dark-mode {
+            background: #f4f4f4;
+            color: #000;
+        }
+
+        .dark-mode .canvas-container {
+            background: #e0e0e0;
+        }
+
+        .dark-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #ffcc00;
+            color: #000;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .dark-toggle:hover {
+            background: #ffaa00;
+        }
+
+        .back-button {
+            display: none;
+            background: #ff4444;
+        }
+
+        .loading {
+            display: none;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-top: 10px;
+        }
+
+        /* Feedback Popup Styling */
+        .feedback-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #222;
+            color: white;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+        }
+
+        .feedback-popup textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            resize: none;
+        }
+
+        .feedback-popup .button {
+            margin: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
         }
     </style>
 </head>
-<body>
+
+<body onload="loadTheme()">
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
     <div class="container">
         <h1>Mirror Reflection Simulation</h1>
-        <canvas id="opticsCanvas" width="600" height="400"></canvas>
+        <div class="canvas-container" id="videoContainer">
+            <canvas id="opticsCanvas" width="600" height="400"></canvas>
+        </div>
+
+        <!-- Controls -->
         <div class="button-container">
-            <button onclick="startAnimation()">Start Simulation</button>
-            <button onclick="resetCanvas()">Reset</button>
+            <button class="button" onclick="startAnimation()">Start Simulation</button>
+            <button class="button" onclick="resetCanvas()">Reset</button>
         </div>
+
         <div class="button-grid">
-            <a href="https://www.physicsclassroom.com/class/refln/Lesson-1/The-Law-of-Reflection" class="button">📖 Theory</a>
-            <a href="https://www.physicsclassroom.com/Physics-Interactives/Reflection-and-Mirrors/Plane-Mirror-Image" class="button">🎞️ Animation</a>
-            <a href="https://www.youtube.com/watch?v=FvgLezn5wcc" class="button">✏️ Formula & Derivation</a>
-            <a href="https://www.youtube.com/watch?v=YgMTxaV7DEg" class="button">🌍 Real-Life Example</a>
-            <a href="https://phet.colorado.edu/en/simulations/mirrors" class="button" target="_blank">🎮 Interactive</a>
-            <a href="../home.html" class="button">Back to Home</a>
+            <button class="button" onclick="loadTheory()">📖 Theory</button>
+            <button class="button" onclick="loadAnimation()">🎞️ Animation</button>
+            <button class="button" onclick="loadFormulas()">✏️ Formula & Derivation</button>
+            <button class="button" onclick="loadRealLifeExample()">🌍 Real-Life Example</button>
+            <button class="button" onclick="loadInteractive()">🎮 Interactive</button>
+            <a href="../quiz/rayquiz.html" class="button" target="_blank">🎮 Quiz</a>
+            <button class="button" onclick="openFeedbackForm()">📝 Feedback</button>
+            <a href="../home.html" class="button">🏠 Home</a>
         </div>
+
+        <!-- Feedback Popup -->
+        <div id="feedbackPopup" class="feedback-popup hidden">
+            <h2>📝 Your Feedback</h2>
+            <p>Let us know what you think about the motion simulation!</p>
+            <textarea id="feedbackInput" placeholder="Type your feedback here..." rows="4"></textarea>
+            <button class="button" onclick="submitFeedback()">Submit</button>
+            <button class="button close-button" onclick="closeFeedbackForm()">❌ Close</button>
+        </div>
+
+        <button class="button back-button" onclick="restoreSimulation()" id="backButton">⬅️ Back to Simulation</button>
     </div>
+
+    <script>
+        function startMotion() {
+            console.log("Starting motion simulation");
+        }
+
+        function resetSimulation() {
+            console.log("Resetting simulation");
+        }
+
+        function loadRealLifeExample() {
+            document.getElementById("videoContainer").innerHTML = `
+                <iframe width="100%" height="100%" src="https://www.youtube.com/watch?v=YgMTxaV7DEg" 
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function loadAnimation() {
+            document.getElementById("videoContainer").innerHTML = `
+        <iframe id="animationFrame" width="100%" height="100%" src="https://www.physicsclassroom.com/Physics-Interactives/Reflection-and-Mirrors/Plane-Mirror-Image" 
+            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <button onclick="openAnimationFullScreen()" id="fullscreenButton">⛶</button>
+        `;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function openAnimationFullScreen() {
+            let iframe = document.getElementById("animationFrame");
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        function loadInteractive() {
+            document.getElementById("videoContainer").innerHTML = `
+            <iframe id="interactiveFrame" width="100%" height="100%" src="https://phet.colorado.edu/en/simulations/mirrors" 
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <button onclick="openFullScreen()" id="fullscreenButton">⛶</button>
+        `;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function openFullScreen() {
+            let iframe = document.getElementById("interactiveFrame");
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        function loadTheory() {
+            document.getElementById("videoContainer").innerHTML = `
+            <h2>Motion in Physics</h2>
+            <p>In physics, motion is the change in position of an object with respect to time. It is described in terms of displacement, distance, velocity, acceleration, and time.</p>
+        `;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function loadFormulas() {
+            document.getElementById("videoContainer").innerHTML = `
+            <p><a href="https://www.youtube.com/watch?v=FvgLezn5wcc"</a></p>
+        `;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function openFeedbackForm() {
+            document.getElementById("feedbackPopup").style.display = "block";
+        }
+
+        function closeFeedbackForm() {
+            document.getElementById("feedbackPopup").style.display = "none";
+        }
+
+        function submitFeedback() {
+            let feedback = document.getElementById("feedbackInput").value;
+            if (feedback.trim() === "") {
+                alert("Please enter some feedback before submitting.");
+                return;
+            }
+            alert("Thank you for your feedback! 😊");
+            document.getElementById("feedbackInput").value = ""; // Clear input
+            closeFeedbackForm();
+        }
+
+        function restoreSimulation() {
+            // Restore the original canvas
+            let container = document.getElementById("videoContainer");
+            container.innerHTML = `<canvas id="motionCanvas"></canvas>`;
+
+            // Hide the back button
+            document.getElementById("backButton").style.display = "none";
+
+            // Ensure the script reinitializes the motion simulation
+            setTimeout(() => {
+                startMotion();  // Restart the simulation
+            }, 100);  // Small delay to ensure canvas is loaded
+        }
+
+        function toggleDarkMode() {
+            let body = document.body;
+            body.classList.toggle("dark-mode");
+            localStorage.setItem("darkMode", body.classList.contains("dark-mode"));
+        }
+
+        function loadTheme() {
+            if (localStorage.getItem("darkMode") === "true") {
+                document.body.classList.add("dark-mode");
+            }
+        }
+    </script>
+
     <script src="ray.js"></script>
 </body>
+
 </html>
