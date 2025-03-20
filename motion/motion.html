@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,8 +25,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .title {
@@ -124,15 +132,84 @@
             color: #ffffff;
             margin-top: 10px;
         }
+
+        /* Feedback Popup Styling */
+        .feedback-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #222;
+            color: white;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+        }
+
+        .feedback-popup textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            resize: none;
+        }
+
+        .feedback-popup .button {
+            margin: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
     </style>
 </head>
+
 <body onload="loadTheme()">
     <button class="dark-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
     <div class="container">
         <h1 class="title">Motion Simulation</h1>
         <p class="description">
-            Explore motion concepts interactively! Learn about kinematics and dynamics through simulations, animations, formulas, and real-world applications.
+            Explore motion concepts interactively! Learn about kinematics and dynamics through simulations, animations,
+            formulas, and real-world applications.
         </p>
 
         <div class="canvas-container" id="videoContainer">
@@ -147,13 +224,23 @@
         </div>
 
         <div class="button-grid">
-            <a href="https://byjus.com/physics/motion-in-physics/#:~:text=In%20physics%2C%20motion%20is%20the,Displacement" class="button">📖 Theory</a>
-            <a href="https://phys23p.sl.psu.edu/phys_anim/mech/indexer_mechEv1.html" class="button">🎞️ Animation</a>
-            <a href="https://byjus.com/physics/derivation-of-equation-of-motion/" class="button">✏️ Formula & Derivation</a>
+            <button class="button" onclick="loadTheory()">📖 Theory</button>
+            <button class="button" onclick="loadAnimation()">🎞️ Animation</button>
+            <button class="button" onclick="loadFormulas()">✏️ Formula & Derivation</button>
             <button class="button" onclick="loadRealLifeExample()">🌍 Real-Life Example</button>
-            <a href="https://ophysics.com/k7.html" class="button" target="_blank">🎮 Interactive</a>
-            <a href="../quiz/quiz.html" class="button" target="_blank">🎮 Quiz</a>
+            <button class="button" onclick="loadInteractive()">🎮 Interactive</button>
+            <a href="../quiz/motionquiz.html" class="button" target="_blank">🎮 Quiz</a>
+            <button class="button" onclick="openFeedbackForm()">📝 Feedback</button>
             <a href="../home.html" class="button">🏠 Home</a>
+        </div>
+
+        <!-- Feedback Popup -->
+        <div id="feedbackPopup" class="feedback-popup hidden">
+            <h2>📝 Your Feedback</h2>
+            <p>Let us know what you think about the motion simulation!</p>
+            <textarea id="feedbackInput" placeholder="Type your feedback here..." rows="4"></textarea>
+            <button class="button" onclick="submitFeedback()">Submit</button>
+            <button class="button close-button" onclick="closeFeedbackForm()">❌ Close</button>
         </div>
 
         <button class="button back-button" onclick="restoreSimulation()" id="backButton">⬅️ Back to Simulation</button>
@@ -175,19 +262,112 @@
             document.getElementById("backButton").style.display = "block";
         }
 
+        function loadAnimation() {
+            document.getElementById("videoContainer").innerHTML = `
+        <iframe id="animationFrame" width="100%" height="100%" src="https://phys23p.sl.psu.edu/phys_anim/mech/indexer_mechEv1.html" 
+            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <button onclick="openAnimationFullScreen()" id="fullscreenButton">⛶</button>
+        `;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function openAnimationFullScreen() {
+            let iframe = document.getElementById("animationFrame");
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        function loadInteractive() {
+            document.getElementById("videoContainer").innerHTML = `
+            <iframe id="interactiveFrame" width="100%" height="100%" src="https://ophysics.com/k7.html" 
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <button onclick="openFullScreen()" id="fullscreenButton">⛶</button>
+        `;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function openFullScreen() {
+            let iframe = document.getElementById("interactiveFrame");
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        function loadTheory() {
+            document.getElementById("videoContainer").innerHTML = `
+            <h2>Motion in Physics</h2>
+            <p>In physics, motion is the change in position of an object with respect to time. It is described in terms of displacement, distance, velocity, acceleration, and time.</p>
+        `;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function loadFormulas() {
+            document.getElementById("videoContainer").innerHTML = `
+            <h2>Equations of Motion</h2>
+            <p>The three equations of motion describe the movement of objects under constant acceleration:</p>
+            <ul>
+                <li><b>First Equation:</b> v = u + at</li>
+                <li><b>Second Equation:</b> s = ut + ½ at²</li>
+                <li><b>Third Equation:</b> v² = u² + 2as</li>
+            </ul>
+            <p>Where:</p>
+            <ul>
+                <li>v = Final velocity</li>
+                <li>u = Initial velocity</li>
+                <li>a = Acceleration</li>
+                <li>s = Displacement</li>
+                <li>t = Time</li>
+            </ul>
+            <p><a href="https://byjus.com/physics/derivation-of-equation-of-motion/" target="_blank">Full derivation on Byju's</a></p>
+        `;
+            document.getElementById("backButton").style.display = "block";
+        }
+
+        function openFeedbackForm() {
+            document.getElementById("feedbackPopup").style.display = "block";
+        }
+
+        function closeFeedbackForm() {
+            document.getElementById("feedbackPopup").style.display = "none";
+        }
+
+        function submitFeedback() {
+            let feedback = document.getElementById("feedbackInput").value;
+            if (feedback.trim() === "") {
+                alert("Please enter some feedback before submitting.");
+                return;
+            }
+            alert("Thank you for your feedback! 😊");
+            document.getElementById("feedbackInput").value = ""; // Clear input
+            closeFeedbackForm();
+        }
+
         function restoreSimulation() {
-    // Restore the original canvas
-    let container = document.getElementById("videoContainer");
-    container.innerHTML = `<canvas id="motionCanvas"></canvas>`;
+            // Restore the original canvas
+            let container = document.getElementById("videoContainer");
+            container.innerHTML = `<canvas id="motionCanvas"></canvas>`;
 
-    // Hide the back button
-    document.getElementById("backButton").style.display = "none";
+            // Hide the back button
+            document.getElementById("backButton").style.display = "none";
 
-    // Ensure the script reinitializes the motion simulation
-    setTimeout(() => {
-        startMotion();  // Restart the simulation
-    }, 100);  // Small delay to ensure canvas is loaded
-}
+            // Ensure the script reinitializes the motion simulation
+            setTimeout(() => {
+                startMotion();  // Restart the simulation
+            }, 100);  // Small delay to ensure canvas is loaded
+        }
 
         function toggleDarkMode() {
             let body = document.body;
@@ -204,4 +384,5 @@
 
     <script src="motion.js"></script>
 </body>
+
 </html>
