@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lotka-Volterra Theory</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .theory-section {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .theory-section h2 {
+      color: #4CAF50;
+      margin-top: 0;
+    }
+
+    .highlight {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+    }
+    a.button:hover {
+      background-color: #388e3c;
+    }
+     a.button {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="theory-section">
+    <h2>Lotka-Volterra Model Theory</h2>
+    <p>The Predator-Prey dynamics simulated here are based on the <span class="highlight">Lotka-Volterra equations</span>, which describe how predator and prey populations change over time.</p>
+    
+    <p>The model uses these equations:</p>
+    <p><span class="highlight">Prey population change:</span> dP/dt = αP - βP×Q</p>
+    <p><span class="highlight">Predator population change:</span> dQ/dt = δβP×Q - γQ</p>
+    
+    <p>Where:</p>
+    <ul>
+      <li><span class="highlight">P</span> = Prey population</li>
+      <li><span class="highlight">Q</span> = Predator population</li>
+      <li><span class="highlight">α</span> = Prey growth rate (controlled by slider)</li>
+      <li><span class="highlight">β</span> = Predation rate (controlled by slider)</li>
+      <li><span class="highlight">γ</span> = Predator death rate (controlled by slider)</li>
+      <li><span class="highlight">δ</span> = Conversion efficiency (controlled by slider)</li>
+    </ul>
+    
+    <p>The simulation shows the characteristic <span class="highlight">oscillations</span> of predator and prey populations, where:</p>
+    <ol>
+      <li>Prey population increases → Predators have more food → Predator population increases</li>
+      <li>Increased predators → More prey eaten → Prey population decreases</li>
+      <li>Prey population decreases → Predators have less food → Predator population decreases</li>
+      <li>Fewer predators → Less predation → Prey population increases</li>
+    </ol>
+    <p>The cycle then repeats! Adjust the parameters to see how they affect the stability and dynamics of the system.</p>
+  </div>
+  <a class="button" href="Predator_Prey.html">← Back to Simulator</a>
+</body>
+</html>
