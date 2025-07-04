@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predator-Prey Dynamics Simulation</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --card-bg: #1e1e1e;
+      --border-color: #333;
+      --button-bg: #333;
+      --button-hover: #555;
+      --slider-handle: #ffffff;
+      --slider-track: #444;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #4CAF50;
+    }
+
+    .simulation-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .chart-container {
+      flex: 1;
+      min-width: 300px;
+      height: 400px;
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      padding: 20px;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+    }
+        .controls {
+            flex: 0 0 300px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .control-group h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .slider-value {
+            margin-left: 10px;
+            font-weight: bold;
+            min-width: 40px;
+        }
+
+        input[type="range"] {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            height: 8px;
+            background: var(--slider-track);
+            border-radius: 4px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--slider-handle);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+        }
+
+        .toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .toggle-label {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            --bg-color: #f5f5f5;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+            --button-bg: #4CAF50;
+            --button-hover: #45a049;
+            --slider-handle: #4CAF50;
+            --slider-track: #ddd;
+        }
+
+        .theory-section {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .theory-section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+
+        .highlight {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+.chart-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center the buttons */
+}
+
+.navigation-buttons {
+  margin-top: 420px; /* adjust so it comes below the canvas */
+  text-align: center;
+}
+
+.navigation-buttons button {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navigation-buttons button:hover {
+  background-color: var(--button-hover);
+}
+
+
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="toggle-container">
+        <label class="toggle-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Dark/Light Mode</span>
+    </div>
+
+    <div class="container">
+        <h1>Predator-Prey Population Dynamics</h1>
+        
+        <div class="simulation-container">
+            <div class="chart-container">
+                <canvas id="populationChart"></canvas>
+                <div class="navigation-buttons">
+    <button onclick="location.href='../home.html'">Home</button>
+    <button onclick="location.href='PreyPredatortheory.html'">Theory</button>
+    <button onclick="location.href='PreyPredatorQuiz.html'">Quiz</button>
+  </div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <h3>Initial Conditions</h3>
+                    
+                    <label for="preyInitial">Initial Prey Population:</label>
+                    <div class="slider-container">
+                        <input type="range" id="preyInitial" min="10" max="500" value="100" step="10">
+                        <span class="slider-value" id="preyInitialValue">100</span>
+                    </div>
+                    
+                    <label for="predatorInitial">Initial Predator Population:</label>
+                    <div class="slider-container">
+                        <input type="range" id="predatorInitial" min="1" max="200" value="20" step="1">
+                        <span class="slider-value" id="predatorInitialValue">20</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Growth Rates</h3>
+                    
+                    <label for="preyGrowth">Prey Growth Rate:</label>
+                    <div class="slider-container">
+                        <input type="range" id="preyGrowth" min="0.01" max="0.5" value="0.1" step="0.01">
+                        <span class="slider-value" id="preyGrowthValue">0.1</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Interaction Rates</h3>
+                    
+                    <label for="predation">Predation Rate:</label>
+                    <div class="slider-container">
+                        <input type="range" id="predation" min="0.001" max="0.02" value="0.01" step="0.001">
+                        <span class="slider-value" id="predationValue">0.01</span>
+                    </div>
+                    
+                    <label for="conversion">Conversion Efficiency:</label>
+                    <div class="slider-container">
+                        <input type="range" id="conversion" min="0.1" max="1" value="0.5" step="0.05">
+                        <span class="slider-value" id="conversionValue">0.5</span>
+                    </div>
+                    
+                    <label for="predatorDeath">Predator Death Rate:</label>
+                    <div class="slider-container">
+                        <input type="range" id="predatorDeath" min="0.1" max="0.5" value="0.2" step="0.01">
+                        <span class="slider-value" id="predatorDeathValue">0.2</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Time Parameters</h3>
+                    
+                    <label for="timeSteps">Time Steps:</label>
+                    <div class="slider-container">
+                        <input type="range" id="timeSteps" min="100" max="1000" value="500" step="50">
+                        <span class="slider-value" id="timeStepsValue">500</span>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="runSimulation">Run Simulation</button>
+                    <button id="resetSimulation">Reset Values</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('change', function() {
+            document.body.classList.toggle('light-mode');
+        });
+
+        // Initialize simulation parameters
+        let preyPopulation = parseInt(document.getElementById('preyInitial').value);
+        let predatorPopulation = parseInt(document.getElementById('predatorInitial').value);
+        let preyGrowthRate = parseFloat(document.getElementById('preyGrowth').value);
+        let predationRate = parseFloat(document.getElementById('predation').value);
+        let conversionEfficiency = parseFloat(document.getElementById('conversion').value);
+        let predatorDeathRate = parseFloat(document.getElementById('predatorDeath').value);
+        let timeSteps = parseInt(document.getElementById('timeSteps').value);
+
+        // Update slider values display
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            const displayElement = document.getElementById(slider.id + 'Value');
+            displayElement.textContent = slider.value;
+            
+            slider.addEventListener('input', function() {
+                displayElement.textContent = slider.value;
+            });
+        });
+
+        // Reset button functionality
+        document.getElementById('resetSimulation').addEventListener('click', function() {
+            document.getElementById('preyInitial').value = 100;
+            document.getElementById('predatorInitial').value = 20;
+            document.getElementById('preyGrowth').value = 0.1;
+            document.getElementById('predation').value = 0.01;
+            document.getElementById('conversion').value = 0.5;
+            document.getElementById('predatorDeath').value = 0.2;
+            document.getElementById('timeSteps').value = 500;
+            
+            document.querySelectorAll('input[type="range"]').forEach(slider => {
+                document.getElementById(slider.id + 'Value').textContent = slider.value;
+            });
+        });
+
+        // Initialize Chart.js
+        const ctx = document.getElementById('populationChart').getContext('2d');
+        let populationChart;
+
+        function initializeChart() {
+            populationChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Prey Population',
+                            data: [],
+                            borderColor: '#4CAF50',
+                            backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Predator Population',
+                            data: [],
+                            borderColor: '#f44336',
+                            backgroundColor: 'rgba(244, 67, 54, 0.2)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time Steps',
+                                color: '#999'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Population Size',
+                                color: '#999'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            min: 0
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#fff'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInOutQuad'
+                    }
+                }
+            });
+        }
+
+        // Run simulation function
+        function runSimulation() {
+            // Get current parameter values
+            preyPopulation = parseInt(document.getElementById('preyInitial').value);
+            predatorPopulation = parseInt(document.getElementById('predatorInitial').value);
+            preyGrowthRate = parseFloat(document.getElementById('preyGrowth').value);
+            predationRate = parseFloat(document.getElementById('predation').value);
+            conversionEfficiency = parseFloat(document.getElementById('conversion').value);
+            predatorDeathRate = parseFloat(document.getElementById('predatorDeath').value);
+            timeSteps = parseInt(document.getElementById('timeSteps').value);
+
+            // Generate time steps
+            const labels = Array.from({length: timeSteps}, (_, i) => i);
+            
+            // Initialize populations
+            let prey = [preyPopulation];
+            let predators = [predatorPopulation];
+            
+            // Run simulation
+            for (let i = 1; i < timeSteps; i++) {
+                const currentPrey = prey[i - 1];
+                const currentPredator = predators[i - 1];
+                
+                // Calculate changes
+                const preyChange = preyGrowthRate * currentPrey - predationRate * currentPrey * currentPredator;
+                const predatorChange = conversionEfficiency * predationRate * currentPrey * currentPredator - predatorDeathRate * currentPredator;
+                
+                // Update populations
+                prey.push(Math.max(currentPrey + preyChange, 0));
+                predators.push(Math.max(currentPredator + predatorChange, 0));
+            }
+            
+            // Update chart
+            populationChart.data.labels = labels;
+            populationChart.data.datasets[0].data = prey;
+            populationChart.data.datasets[1].data = predators;
+            
+            // Add some noise to make it look more natural
+            populationChart.data.datasets.forEach(dataset => {
+                dataset.data = dataset.data.map(value => value * (1 + (Math.random() - 0.5) * 0.01));
+            });
+            
+            populationChart.update();
+            
+            // Auto-adjust y-axis for better visibility
+            const maxPrey = Math.max(...prey);
+            const maxPredator = Math.max(...predators);
+            populationChart.options.scales.y.max = Math.max(maxPrey, maxPredator) * 1.2;
+            populationChart.update();
+        }
+
+        // Initialize chart and run first simulation
+        initializeChart();
+        runSimulation();
+
+        // Run simulation button
+        document.getElementById('runSimulation').addEventListener('click', runSimulation);
+    </script>
+</body>
+</html>
