@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Theory – Photosynthesis Simulator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.7;
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+    }
+
+    h1, h2 {
+      color: #2E7D32;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    a.button:hover {
+      background-color: #388e3c;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    code {
+      background-color: #e0e0e0;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .question {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 6px rgba(255,255,255,0.05);
+}
+
+body.dark-mode label {
+  color: #ddd;
+}
+
+body.dark-mode label.correct {
+  background-color: #2e7d32;
+}
+
+body.dark-mode label.incorrect {
+  background-color: #c62828;
+}
+
+body.dark-mode button,
+body.dark-mode .nav-buttons button,
+body.dark-mode .theme-toggle,
+body.dark-mode a.button {
+  background-color: #2e7d32;
+  color: white;
+}
+
+body.dark-mode .theme-toggle {
+  background-color: #e0e0e0;
+  color: #121212;
+}
+
+  </style>
+</head>
+<body class="dark-mode">
+  <button class="theme-toggle" onclick="toggleTheme()">🌗 Toggle Theme</button>
+  <h1>Understanding Photosynthesis and the Simulator</h1>
+
+  <div class="section">
+    <h2>🌿 What is Photosynthesis?</h2>
+    <p>
+      Photosynthesis is the process by which green plants, algae, and some bacteria convert light energy from the sun into chemical energy stored in glucose. This process occurs mainly in the chloroplasts of plant cells and is vital for life on Earth as it produces oxygen and organic compounds used by other organisms.
+    </p>
+    <p>The overall reaction is:</p>
+    <p style="text-align: center;"><strong>6CO<sub>2</sub> + 6H<sub>2</sub>O + light → C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub></strong></p>
+  </div>
+
+  <div class="section">
+    <h2>🌈 Light Absorption in Plants</h2>
+    <p>
+      Plants absorb light using pigments in their leaves. The three main groups of pigments involved in photosynthesis are:
+    </p>
+
+    <h3>🟢 Chlorophyll A</h3>
+    <p>
+      Chlorophyll A is the primary pigment in photosynthesis and is directly involved in converting light energy into chemical energy during the light-dependent reactions. It absorbs light most efficiently in the **blue (~430 nm)** and **red (~662 nm)** wavelengths and reflects green light, which is why leaves appear green.
+    </p>
+
+    <h3>🟩 Chlorophyll B</h3>
+    <p>
+      Chlorophyll B is an accessory pigment that complements Chlorophyll A by absorbing light in slightly different wavelengths, specifically around **453 nm (blue)** and **642 nm (red-orange)**. It passes the energy it absorbs to Chlorophyll A, thus expanding the range of usable light and increasing photosynthetic efficiency.
+    </p>
+
+    <h3>🟡 Carotenoids</h3>
+    <p>
+      Carotenoids are accessory pigments that absorb light in the blue-green region (~450–500 nm). They appear yellow, orange, or red and play two major roles:
+    </p>
+    <ul>
+      <li>Expanding the spectrum of absorbed light beyond what chlorophyll can capture.</li>
+      <li>Protecting the plant from photodamage by dissipating excess energy and quenching harmful reactive oxygen species.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🧪 How the Simulation Works</h2>
+    <p>
+      The simulator models the light absorption behavior of plant pigments based on their real-world absorption spectra.
+      Here's how it works:
+    </p>
+    <ul>
+      <li>The background is a gradient representing the visible light spectrum (400–700 nm).</li>
+      <li>Each pigment's absorption is modeled using Gaussian curves (bell-shaped), based on their peak absorption wavelengths.</li>
+      <li>The white vertical bar represents the current wavelength selected by the user, while the bar's height shows light intensity.</li>
+      <li>The curve heights change with pigment concentrations to simulate how much light is absorbed.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🎛️ What Do the Controls Represent?</h2>
+    <ul>
+      <li><strong>Light Intensity:</strong> Affects the height of the white bar at the selected wavelength. This simulates how much light of that color is available.</li>
+      <li><strong>Light Wavelength:</strong> Determines the horizontal position of the bar. This simulates changing the color of light (from violet to red).</li>
+      <li><strong>Chlorophyll A & B Concentrations:</strong> Adjust the heights of their respective curves. This simulates changes in pigment availability in leaves.</li>
+    </ul>
+    <p>
+      These adjustments help users visualize how light quality and pigment levels influence the efficiency of photosynthesis.
+    </p>
+  </div>
+
+  <a class="button" href="PhotosynthesisLightAbsorptionSpectrum.html">← Back to Simulator</a>
+  <script>
+  function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+  }
+</script>
+</body>
+</html>
