@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atomic Structure & Periodic Trends - LearnSphere</title>
+  <link rel="stylesheet" href="atomic.css" />
+</head>
+
+<body onload="loadTheme()">
+  <div class="container">
+    <h1>Atomic Structure & Periodic Trends</h1>
+
+    <div class="canvas-container" id="contentContainer">
+      <canvas id="atomCanvas" width="600" height="400"></canvas>
+    </div>
+
+    <div class="button">
+      <button class="button" onclick="startSimulation()">Start Simulation</button>
+      <button class="button" onclick="resetCanvas()">Reset</button>
+    </div>
+
+    <div class="button-grid">
+      <button class="button" onclick="loadTheory()">📖 Theory</button>
+      <button class="button" onclick="loadAnimation()">🎞️ Animation</button>
+      <button class="button" onclick="loadFormulas()">✏️ Formulas</button>
+      <button class="button" onclick="loadRealLifeExample()">🌍 Real Life</button>
+      <button class="button" onclick="loadInteractive()">🎮 Interactive</button>
+      <a href="../chemistryquiz/atomic_structurequiz.html" class="button" target="_blank">🎮 Quiz</a>
+      <button class="button" onclick="openFeedbackForm()">📝 Feedback</button>
+      <a href="../home.html" class="button">🏠 Home</a>
+    </div>
+
+    <!-- Feedback Popup -->
+    <div id="feedbackPopup" class="feedback-popup hidden">
+      <h2>📝 Your Feedback</h2>
+      <p>Let us know what you think about the Probability & Statistics module!</p>
+      <textarea id="feedbackInput" placeholder="Type your feedback here..." rows="4"></textarea>
+      <button class="button" onclick="submitFeedback()">Submit</button>
+      <button class="button close-button" onclick="closeFeedbackForm()">❌ Close</button>
+    </div>
+  </div>
+
+  <button class="button back-button" id="backButton" onclick="restoreCanvas()">⬅️ Back to Simulation</button>
+  </div>
+
+  <script src="atomic.js"></script>
+</body>
+
+</html>
