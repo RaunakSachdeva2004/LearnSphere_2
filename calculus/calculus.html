@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculus – Limits, Derivatives & Integrals</title>
+  <link rel="stylesheet" href="calculus.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Calculus – Limits, Derivatives & Integrals</h1>
+    <p>Explore the fundamentals of calculus through interactive simulations and resources.</p>
+
+    <!-- Dynamic Content Area -->
+    <div class="canvas-container" id="contentArea">
+      <p>Select an option above to begin exploring calculus concepts.</p>
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="button-grid">
+      <button class="button" onclick="loadDerivativeCalculator()">🧮 Derivative Calculator</button>
+      <button class="button" onclick="loadTheory()">📖 Theory</button>
+      <button class="button" onclick="loadAnimation()">🎞️ Animation</button>
+      <button class="button" onclick="loadFormulas()">✏️ Formula & Derivation</button>
+      <button class="button" onclick="loadRealLifeExample()">🌍 Real-Life Example</button>
+      <button class="button" onclick="loadInteractive()">🎮 Interactive</button>
+      <a href="../mathsquiz/calculusquiz.html" class="button" target="_blank">🎮 Quiz</a>
+      <button class="button" onclick="openFeedbackForm()">📝 Feedback</button>
+      <a href="../home.html" class="button">🏠 Home</a>
+    </div>
+
+    <!-- Feedback Popup -->
+    <div id="feedbackPopup" class="feedback-popup hidden">
+      <h2>📝 Your Feedback</h2>
+      <p>Let us know what you think about the calculus simulation!</p>
+      <textarea id="feedbackInput" placeholder="Type your feedback here..." rows="4"></textarea>
+      <button class="button" onclick="submitFeedback()">Submit</button>
+      <button class="button close-button" onclick="closeFeedbackForm()">❌ Close</button>
+    </div>
+  </div>
+
+  <script src="calculus.js"></script>
+</body>
+
+</html>
