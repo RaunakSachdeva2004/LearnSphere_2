@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chemical Equilibrium & Le Chatelier’s Principle - LearnSphere</title>
+  <link rel="stylesheet" href="equilibrium.css" />
+</head>
+
+<body onload="initializeSimulation()">
+  <div class="container">
+    <h1 class="title">Chemical Equilibrium & Le Chatelier’s Principle</h1>
+    <p class="description">Explore how changes in concentration, temperature, and pressure affect chemical equilibrium.
+    </p>
+
+    <div class="canvas-container">
+      <canvas id="equilibriumCanvas" width="600" height="400"></canvas>
+    </div>
+
+    <div class="controls">
+      <button class="button" onclick="startSimulation()">Start Simulation</button>
+      <button class="button" onclick="resetSimulation()">Reset</button>
+    </div>
+
+    <div class="adjustments">
+      <button class="button" onclick="increaseConcentration()">Increase [Reactant]</button>
+      <button class="button" onclick="decreaseConcentration()">Decrease [Reactant]</button>
+      <button class="button" onclick="increaseTemperature()">Increase Temperature</button>
+      <button class="button" onclick="decreaseTemperature()">Decrease Temperature</button>
+      <button class="button" onclick="increasePressure()">Increase Pressure</button>
+      <button class="button" onclick="decreasePressure()">Decrease Pressure</button>
+    </div>
+
+    <div class="info">
+      <p id="equilibriumInfo">Equilibrium Status: Not started</p>
+    </div>
+
+    <div class="button-grid">
+      <button class="button" onclick="loadTheory()">📖 Theory</button>
+      <button class="button" onclick="loadAnimation()">🎞️ Animation</button>
+      <button class="button" onclick="loadFormulas()">✏️ Formulas</button>
+      <button class="button" onclick="loadRealLifeExample()">🌍 Real Life</button>
+      <button class="button" onclick="loadInteractive()">🎮 Interactive</button>
+      <a href="../chemistryquiz/equilibriumquiz.html" class="button" target="_blank">🎮 Quiz</a>
+      <button class="button" onclick="openFeedbackForm()">📝 Feedback</button>
+      <a href="../home.html" class="button">🏠 Home</a>
+    </div>
+
+    <!-- Feedback Popup -->
+    <div id="feedbackPopup" class="feedback-popup hidden">
+      <h2>📝 Your Feedback</h2>
+      <p>Let us know what you think about the Probability & Statistics module!</p>
+      <textarea id="feedbackInput" placeholder="Type your feedback here..." rows="4"></textarea>
+      <button class="button" onclick="submitFeedback()">Submit</button>
+      <button class="button close-button" onclick="closeFeedbackForm()">❌ Close</button>
+    </div>
+  </div>
+
+  <button class="button back-button" id="backButton" onclick="restoreCanvas()">⬅️ Back to Simulation</button>
+  </div>
+
+  <script src="equilibrium.js"></script>
+</body>
+
+</html>
