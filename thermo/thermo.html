@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thermodynamics & Reaction Kinetics Simulation</title>
+  <link rel="stylesheet" href="thermo.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Thermodynamics & Reaction Kinetics</h1>
+    <section id="theory">
+      <h2>Theory</h2>
+      <p>
+        This simulation demonstrates the principles of thermodynamics and reaction kinetics.
+        By adjusting temperature and activation energy, observe how reaction rates and equilibrium positions change.
+      </p>
+    </section>
+
+    <section id="controls">
+      <h2>Controls</h2>
+      <div class="button-grid">
+        <button class="button" onclick="startSimulation()">Start Simulation</button>
+        <button class="button" onclick="resetSimulation()">Reset</button>
+        <button class="button" onclick="increaseTemperature()">Increase Temperature</button>
+        <button class="button" onclick="decreaseTemperature()">Decrease Temperature</button>
+        <button class="button" onclick="increaseActivationEnergy()">Increase Activation Energy</button>
+        <button class="button" onclick="decreaseActivationEnergy()">Decrease Activation Energy</button>
+      </div>
+      <div class="info">
+        <p>Temperature: <span id="temperatureDisplay">300</span> K</p>
+        <p>Activation Energy: <span id="activationEnergyDisplay">50</span> kJ/mol</p>
+        <p>Successful Reactions: <span id="reactionCount">0</span></p>
+      </div>
+    </section>
+
+    <section id="simulation">
+      <h2>Simulation</h2>
+      <div class="canvas-container">
+        <canvas id="simulationCanvas" width="600" height="400"></canvas>
+      </div>
+    </section>
+
+    <section id="equilibrium">
+      <h2>Equilibrium Information</h2>
+      <p id="equilibriumInfo">Equilibrium Status: Not started</p>
+    </section>
+  </div>
+
+
+  <script src="thermo.js"></script>
+</body>
+
+</html>
