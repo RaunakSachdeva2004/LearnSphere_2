@@ -11,14 +11,16 @@
 <body>
   <div class="container">
     <h1>Thermodynamics & Reaction Kinetics</h1>
-    <section id="theory">
-      <h2>Theory</h2>
-      <p>
-        This simulation demonstrates the principles of thermodynamics and reaction kinetics.
-        By adjusting temperature and activation energy, observe how reaction rates and equilibrium positions change.
-      </p>
+
+    <!-- 👇 Simulation Section First -->
+    <section id="simulation">
+      <h2>Simulation</h2>
+      <div class="canvas-container">
+        <canvas id="simulationCanvas" width="600" height="400"></canvas>
+      </div>
     </section>
 
+    <!-- 👇 Controls Section -->
     <section id="controls">
       <h2>Controls</h2>
       <div class="button-grid">
@@ -36,19 +38,33 @@
       </div>
     </section>
 
-    <section id="simulation">
-      <h2>Simulation</h2>
-      <div class="canvas-container">
-        <canvas id="simulationCanvas" width="600" height="400"></canvas>
-      </div>
+    <!-- 👇 Theory Section -->
+    <section id="theory">
+      <h2>Theory</h2>
+      <p>
+        This simulation demonstrates the principles of thermodynamics and reaction kinetics.
+        By adjusting temperature and activation energy, observe how reaction rates and equilibrium positions change.
+      </p>
     </section>
 
+    <!-- 👇 Equilibrium Info -->
     <section id="equilibrium">
       <h2>Equilibrium Information</h2>
       <p id="equilibriumInfo">Equilibrium Status: Not started</p>
     </section>
-  </div>
 
+    <!-- 👇 Navigation Buttons Section LAST -->
+    <div class="button-grid extra-buttons">
+      <button class="button" onclick="loadTheory()">📖 Theory</button>
+      <button class="button" onclick="loadAnimation()">🎞️ Animation</button>
+      <button class="button" onclick="loadFormulas()">✏️ Molecular Shapes</button>
+      <button class="button" onclick="loadRealLifeExample()">🌍 Real-Life Example</button>
+      <button class="button" onclick="loadInteractive()">🎮 Interactive</button>
+      <a href="../chemistryquiz/thermoquiz.html" class="button" target="_blank">🎮 Quiz</a>
+      <button class="button" onclick="openFeedbackForm()">📝 Feedback</button>
+      <a href="../home.html" class="button">🏠 Home</a>
+    </div>
+  </div>
 
   <script src="thermo.js"></script>
 </body>
