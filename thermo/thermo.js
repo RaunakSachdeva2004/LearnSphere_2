@@ -168,3 +168,42 @@ function submitFeedback() {
     alert("Please write some feedback before submitting.");
   }
 }
+
+function loadTheory() {
+  document.getElementById("theory").scrollIntoView({ behavior: "smooth" });
+}
+
+function loadAnimation() {
+  window.open("https://www.youtube.com/watch?v=0Gvmpg2yJQU", "_blank"); // Replace with your own
+}
+
+function loadFormulas() {
+  window.open("https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps", "_blank");
+}
+
+function loadRealLifeExample() {
+  alert("Real-life example: Instant cold packs use endothermic reactions, absorbing heat to feel cold.");
+}
+
+function loadInteractive() {
+  window.open("https://phet.colorado.edu/en/simulations/category/chemistry", "_blank");
+}
+
+function openFeedbackForm() {
+  document.getElementById("feedbackPopup").classList.remove("hidden");
+}
+
+function closeFeedbackForm() {
+  document.getElementById("feedbackPopup").classList.add("hidden");
+}
+
+function submitFeedback() {
+  const feedback = document.getElementById("feedbackInput").value.trim();
+  if (feedback) {
+    alert("Thank you for your feedback!");
+    document.getElementById("feedbackInput").value = "";
+    closeFeedbackForm();
+  } else {
+    alert("Please enter feedback before submitting.");
+  }
+}
